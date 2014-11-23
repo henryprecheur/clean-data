@@ -1,3 +1,5 @@
+library(data.table)
+
 features = read.table("features.txt")
 activity_labels = read.table("activity_labels.txt")
 
@@ -22,7 +24,6 @@ load.dataset = function(path) {
         activities = activities[order(activities$orderid),]
 
         subjects = read.table(sprintf("%s/subject_%s.txt", path, path))
-        # y = read.table(sprintf("%s/y_%s.txt", path, path))
         data.frame(
                    "subject_id"=subjects$V1,
                    "activity"=activities$V2,
@@ -35,4 +36,11 @@ test = load.dataset("test")
 train = load.dataset("train")
 
 # Concatenate the data together
-rbind(test, train)
+x = data.table(rbind(test, train))
+
+# Calculate the mean for each activity by subject_id & activity
+write.table(
+            x[,lapply(.SD, mean), by=c("subject_id", "activity")],
+            file="clean.txt",
+            row.names=F,
+)
