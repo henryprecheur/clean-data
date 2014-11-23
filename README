@@ -1,0 +1,17 @@
+To run the script copy the content of the "UCI HAR Dataset" directory into the
+root of the repository and run run_analysis.R.
+
+To run the script needs the following files in its working directory:
+
+    features.txt
+    activity_labels.txt
+    test/X_test.txt
+    test/y_test.txt
+    test/subject_test.txt
+    train/X_train.txt
+    train/y_train.txt
+    train/subject_train.txt
+
+It will write the result of the analysis in the file clean.txt.
+
+See CodeBook.md for a description of the values in clean.txt.
